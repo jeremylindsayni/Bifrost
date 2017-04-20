@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.0-beta-001745-00</RuntimeFrameworkVersion>
+    <RuntimeIdentifiers>win8-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bifrost.Devices.Gpio.Abstractions\Bifrost.Devices.Gpio.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Bifrost.Devices.Gpio.Core\Bifrost.Devices.Gpio.Core.csproj" />
+    <ProjectReference Include="..\..\Bifrost.Devices.Gpio\Bifrost.Devices.Gpio.csproj" />
+  </ItemGroup>
+</Project>
+

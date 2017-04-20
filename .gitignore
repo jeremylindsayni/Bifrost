@@ -3,5 +3,5 @@ bin
 obj
 *.user
 *.pfx
-/Bifröst.Devices.Bridge/Bifröst.Devices.Bridge/*.user
-/Bifröst.Devices.Bridge/Bifröst.Devices.Bridge/Bifröst.Devices.Bridge_TemporaryKey.pfx
+/Bifrost.Devices.Bridge/Bifrost.Devices.Bridge/*.user
+/Bifrost.Devices.Bridge/Bifrost.Devices.Bridge/Bifrost.Devices.Bridge_TemporaryKey.pfx

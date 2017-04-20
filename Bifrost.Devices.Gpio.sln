@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bifrost.Devices.Gpio.Abstractions", "Bifrost.Devices.Gpio.Abstractions\Bifrost.Devices.Gpio.Abstractions.csproj", "{4A8EF4EA-FA4E-46C9-BB83-5328CE0F320F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bifrost.Devices.Gpio", "Bifrost.Devices.Gpio\Bifrost.Devices.Gpio.csproj", "{63801A06-B9DB-4066-AA06-B6C05180299D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bifrost.Devices.Gpio.Core", "Bifrost.Devices.Gpio.Core\Bifrost.Devices.Gpio.Core.csproj", "{0E498A20-CEBF-48EF-91ED-F4DC59187FB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A8EF4EA-FA4E-46C9-BB83-5328CE0F320F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A8EF4EA-FA4E-46C9-BB83-5328CE0F320F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A8EF4EA-FA4E-46C9-BB83-5328CE0F320F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A8EF4EA-FA4E-46C9-BB83-5328CE0F320F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63801A06-B9DB-4066-AA06-B6C05180299D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63801A06-B9DB-4066-AA06-B6C05180299D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63801A06-B9DB-4066-AA06-B6C05180299D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63801A06-B9DB-4066-AA06-B6C05180299D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E498A20-CEBF-48EF-91ED-F4DC59187FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E498A20-CEBF-48EF-91ED-F4DC59187FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E498A20-CEBF-48EF-91ED-F4DC59187FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E498A20-CEBF-48EF-91ED-F4DC59187FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
