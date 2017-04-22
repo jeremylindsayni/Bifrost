@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -17,7 +13,7 @@ namespace WebApi
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseUrls("http://*:8000")
+                .UseUrls("http://*:5000")
                 .ConfigureAppConfiguration((context, configBuilder) => {
                     configBuilder
                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

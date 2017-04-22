@@ -5,3 +5,4 @@ obj
 *.pfx
 /Bifrost.Devices.Bridge/Bifrost.Devices.Bridge/*.user
 /Bifrost.Devices.Bridge/Bifrost.Devices.Bridge/Bifrost.Devices.Bridge_TemporaryKey.pfx
+.vscode
