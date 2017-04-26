@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace Bifrost.Devices.Gpio
 {
@@ -11,11 +12,13 @@ namespace Bifrost.Devices.Gpio
     {
         private static GpioController instance = new GpioController();
 
+        public static string DevicePath { get; private set; }
+
         public static IGpioController Instance
         {
             get
             {
-                bool isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+                bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
                 if (isWindows) 
                 {
@@ -47,8 +50,29 @@ namespace Bifrost.Devices.Gpio
                 return instance;
             }
         }
+        
+        public IDictionary<string, string> Pins
+        {
+            get
+            {
+                DirectoryInfo gpioPins = new DirectoryInfo(DevicePath);
 
-        public static string DevicePath { get; private set; }
+                IDictionary<string, string> pinNameValues = new Dictionary<string, string>();
+
+                var pinNames = gpioPins.GetDirectories()
+                    .Where(m => m.Name.StartsWith("gpio"))
+                    .Where(m => !m.Name.StartsWith("gpiochip"))
+                    .Select(m => m.Name)
+                    .ToArray();
+
+                foreach (var pinName in pinNames)
+                {
+                    pinNameValues.Add(pinName, File.ReadAllText(Path.Combine(DevicePath, pinName)));
+                }
+
+                return pinNameValues;
+            }
+        }
 
         public IGpioPin OpenPin(int pinNumber)
         {

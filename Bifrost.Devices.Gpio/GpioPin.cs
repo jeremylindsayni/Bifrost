@@ -40,5 +40,19 @@ namespace Bifrost.Devices.Gpio
             File.WriteAllText(Path.Combine(this.GpioPath, "value"), ((int)pinValue).ToString());
             Directory.SetLastWriteTime(Path.Combine(this.GpioPath), DateTime.UtcNow);
         }
+
+        public GpioPinValue Read()
+        {
+            if (File.Exists(Path.Combine(this.GpioPath, "value")))
+            {
+                var pinValue = File.ReadAllText(Path.Combine(this.GpioPath, "value"));
+
+                return (GpioPinValue)Enum.Parse(typeof(GpioPinValue), pinValue);
+            }
+            else
+            {
+                return GpioPinValue.Low;
+            }
+        }
     }
 }

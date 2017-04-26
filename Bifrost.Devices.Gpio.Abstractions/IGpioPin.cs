@@ -7,6 +7,8 @@ namespace Bifrost.Devices.Gpio.Abstractions
     {
         void Write(GpioPinValue pinValue);
 
+        GpioPinValue Read();
+
         void SetDriveMode(GpioPinDriveMode driveMode);
     }
 }
