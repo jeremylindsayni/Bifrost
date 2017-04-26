@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Bifrost.Devices.Gpio.Core;
 using Bifrost.Devices.Gpio.Abstractions;
 using Bifrost.Devices.Gpio;
-using Newtonsoft.Json;
 
-namespace WebApiWithGpioPinSwitching.Controllers
+namespace GpioSwitcherWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class PinsController : Controller
