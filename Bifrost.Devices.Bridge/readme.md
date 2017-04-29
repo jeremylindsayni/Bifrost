@@ -51,4 +51,10 @@ After MSBuild completes, there will be a new folder in the solution called AppPa
 Now install the app bundle and dependencies using the Windows Device Portal for your device - more details are available here:  
 https://developer.microsoft.com/en-us/windows/iot/docs/appinstaller
 
-Basically you just need to upload the app bundle and dependencies to your device through this page, and then just click on "Go" to deploy.
+Basically you just need to upload the app bundle and dependencies to your device through this page, and then just click on "Go" to deploy.  
+
+Once it has been successfully deployed the UWP bridge to your device, you'll see it appear in your list of apps, similarly to the image below. If it isn't running, select the option to start the UWP app from the 'Actions' dropdown list on the left of the list of apps.  
+
+You may wish to set this app to run at startup by selecting the radio button to do this.
+
+![Image of Windows Device Portal](https://jeremylindsayni.files.wordpress.com/2017/04/screenshot-1493500867.png)
