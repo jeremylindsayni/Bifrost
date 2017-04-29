@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bifrost.Devices.Gpio" Version="0.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0-preview1-*" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0-preview1-*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0-preview1-*" />
@@ -18,12 +19,6 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0-preview1-*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Bifrost.Devices.Gpio.Abstractions\Bifrost.Devices.Gpio.Abstractions.csproj" />
-    <ProjectReference Include="..\..\Bifrost.Devices.Gpio.Core\Bifrost.Devices.Gpio.Core.csproj" />
-    <ProjectReference Include="..\..\Bifrost.Devices.Gpio\Bifrost.Devices.Gpio.csproj" />
   </ItemGroup>
 
 </Project>
