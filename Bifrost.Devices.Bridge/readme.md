@@ -42,11 +42,11 @@ MSBuild .\Bifrost.Devices.Bridge\Bifrost.Devices.Bridge.csproj /p:AppxBundle=Alw
 After MSBuild completes, there will be a new folder in the solution called AppPackage, containing:  
   
 #### App bundle
-Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\Bifrost.Devices.Bridge_0.1.0.0_x86_arm.appxbundle  
+~\Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\Bifrost.Devices.Bridge_0.1.0.0_x86_arm.appxbundle  
   
 #### Dependencies
-Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Framework.1.6.appx
-Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Runtime.1.6.appx  
+~\Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Framework.1.6.appx
+~\Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Runtime.1.6.appx  
   
 Now install the app bundle and dependencies using the Windows Device Portal for your device - more details are available here:  
 https://developer.microsoft.com/en-us/windows/iot/docs/appinstaller
