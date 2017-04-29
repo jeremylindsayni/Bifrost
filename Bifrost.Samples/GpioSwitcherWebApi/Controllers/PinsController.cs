@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Bifrost.Devices.Gpio.Core;
 using Bifrost.Devices.Gpio.Abstractions;
