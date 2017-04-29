@@ -17,7 +17,8 @@ https://developer.microsoft.com/en-us/windows/iot/docs/appdeployment
 
 ### With the command line using MSBuild and Nuget
 
-Make sure that Nuget 4.1 is installed - you can get it from  
+### Install Nuget 4.1
+Make sure that Nuget 4.1 is installed - you can get it from:  
 https://dist.nuget.org/index.html
 
 You can test if Nuget is installed correctly by opening a command prompt and typing nuget.  
@@ -25,6 +26,7 @@ It should return the text: **NuGet Version: 4.1.0.2450**
 
 If the text returned is "_The system cannot find the path specified._" then check if the directory that holds nuget.exe is on your path.
 
+### Build the solution using MSBuild
 From a command prompt, browse to the directory that holds the **Bifrost.Devices.Bridge.sln** file, and run:  
 ```nuget restore```
 
@@ -36,12 +38,13 @@ Next, from the same directory, run the command
 MSBuild .\Bifrost.Devices.Bridge\Bifrost.Devices.Bridge.csproj /p:AppxBundle=Always /p:AppxBundlePlatforms="x86|arm" /p:Configuration=Release  
 ```
 
-After this runs, there will be a new folder AppPackage containing:  
+### Deploy using the Windows Device Portal
+After MSBuild completes, there will be a new folder in the solution called AppPackage, containing:  
   
-**App bundle**  
+#### App bundle
 Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\Bifrost.Devices.Bridge_0.1.0.0_x86_arm.appxbundle  
   
-**Dependencies**  
+#### Dependencies
 Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Framework.1.6.appx
 Bifrost.Devices.Bridge\AppPackages\Bifrost.Devices.Bridge_0.1.0.0_Test\arm\Microsoft.NET.Native.Runtime.1.6.appx  
   
