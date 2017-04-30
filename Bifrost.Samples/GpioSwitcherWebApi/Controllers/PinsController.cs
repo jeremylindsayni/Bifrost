@@ -32,10 +32,9 @@ namespace GpioSwitcherWebApi.Controllers
             GpioPinValue pinStatus;
 
             Console.WriteLine("About to get pin status.");
-            using (var pin = gpioController.OpenPin(pinId))
-            {
-                pinStatus = pin.Read();
-            }
+            var pin = gpioController.OpenPin(pinId);
+
+            pinStatus = pin.Read();
 
             Console.WriteLine("Returning pin status.");
             return Ok(pinStatus.ToString());
@@ -46,20 +45,19 @@ namespace GpioSwitcherWebApi.Controllers
         public void SwitchPin(int pinId, int status)
         {
             Console.WriteLine("About to change pin status.");
-            using (var pin = gpioController.OpenPin(pinId))
-            {
-                pin.SetDriveMode(GpioPinDriveMode.Output);
+            var pin = gpioController.OpenPin(pinId);
 
-                if (status == 1)
-                {
-                    Console.WriteLine("Going on");
-                    pin.Write(GpioPinValue.High);
-                }
-                else
-                {
-                    Console.WriteLine("Going off");
-                    pin.Write(GpioPinValue.Low);
-                }
+            pin.SetDriveMode(GpioPinDriveMode.Output);
+
+            if (status == 1)
+            {
+                Console.WriteLine("Going on");
+                pin.Write(GpioPinValue.High);
+            }
+            else
+            {
+                Console.WriteLine("Going off");
+                pin.Write(GpioPinValue.Low);
             }
         }
     }

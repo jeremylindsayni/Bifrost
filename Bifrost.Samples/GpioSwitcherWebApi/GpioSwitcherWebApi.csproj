@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bifrost.Devices.Gpio" Version="0.0.1" />
+    <PackageReference Include="Bifrost.Devices.Gpio" Version="0.0.2" />
+    <PackageReference Include="Bifrost.Devices.Gpio.Abstractions" Version="0.0.1" />
+    <PackageReference Include="Bifrost.Devices.Gpio.Core" Version="0.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0-preview1-*" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0-preview1-*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0-preview1-*" />
