@@ -55,6 +55,7 @@ namespace Bifrost.Devices.Gpio
         {
             get
             {
+                Console.WriteLine($"About to start reading pins from {DevicePath}");
                 DirectoryInfo gpioPins = new DirectoryInfo(DevicePath);
 
                 IDictionary<string, string> pinNameValues = new Dictionary<string, string>();
@@ -65,9 +66,12 @@ namespace Bifrost.Devices.Gpio
                     .Select(m => m.Name)
                     .ToArray();
 
+                Console.WriteLine($"Number of pin folders = {pinNames.Count()}");
+
                 foreach (var pinName in pinNames)
                 {
-                    pinNameValues.Add(pinName, File.ReadAllText(Path.Combine(DevicePath, pinName)));
+                    Console.WriteLine($"About to add value for {Path.Combine(DevicePath, pinName, "value")}");
+                    pinNameValues.Add(pinName, File.ReadAllText(Path.Combine(DevicePath, pinName, "value")));
                 }
 
                 return pinNameValues;
