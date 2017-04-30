@@ -4,6 +4,20 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <RuntimeFrameworkVersion>2.0.0-beta-001745-00</RuntimeFrameworkVersion>
     <RuntimeIdentifiers>win8-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Jeremy Lindsay</Authors>
+    <Company>Jeremy Lindsay</Company>
+    <Product>Bifröst</Product>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <RepositoryUrl>https://github.com/jeremylindsayni/Bifrost</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/jeremylindsayni/Bifrost/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright 2017</Copyright>
+    <PackageProjectUrl>https://github.com/jeremylindsayni/Bifrost</PackageProjectUrl>
+    <Summary>Bifröst is a project for developers who want to write .NET Core 2 applications that use IoT devices, and want to target Ubuntu and Windows with the same code.</Summary>
+    <Description>This library helps write .NET Core 2 applications set and read Gpio levels on IoT devices such as the Raspberry Pi.</Description>
+    <PackageTags>Bifrost Gpio Raspberry Ubuntu Windows</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/jeremylindsayni/Bifrost/master/Bifrost.Devices.Bridge/Bifrost.Devices.Bridge/Assets/Bridge-32x32.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
