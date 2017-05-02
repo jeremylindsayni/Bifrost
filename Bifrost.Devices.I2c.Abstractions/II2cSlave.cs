@@ -4,7 +4,7 @@ namespace Bifrost.Devices.I2c.Abstractions
 {
     public interface II2cSlave
     {
-        byte GetI2cAddress();
+        byte I2cAddress { get; }
 
         void Initialize();
 

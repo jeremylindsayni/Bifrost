@@ -4,15 +4,17 @@ namespace Bifrost.Devices.I2c.Abstractions
 {
     public interface II2cDevice : IDisposable
     {
-        string DeviceSelector { get; }
-
         II2cConnectionSettings ConnectionSettings { get; }
+
+        int BusId { get; }
 
         string DeviceId { get; }
 
-        byte[] ReadBytes(byte registerAddress); 
+        byte[] ReadBytes(byte registerAddress, int startAddress, int length); 
 
-        byte[] ReadBytes(byte registerAddress, int size);
+        byte[] ReadBytes(byte registerAddress, int length);
+
+        IWord ReadWord(byte registerAddress, int startAddress);
 
         IWord ReadWord(byte registerAddress);
     }
