@@ -1,48 +1,68 @@
-﻿using System;
-using System.Diagnostics;
-using Bifrost.Devices.I2c.Abstractions;
-using System.Globalization;
+﻿using Bifrost.Devices.I2c.Abstractions;
+using System;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Bifrost.Devices.I2c
 {
     public class I2cDevice : II2cDevice
     {
-        private Process process;
+        private int OPEN_READ_WRITE = 2;
 
-        public I2cDevice(int busId, II2cConnectionSettings connectionSettings)
+        private int I2C_SLAVE = 0x0703;
+
+        [DllImport("libc.so.6", EntryPoint = "open")]
+        public static extern int Open(string fileName, int mode);
+
+        [DllImport("libc.so.6", EntryPoint = "ioctl", SetLastError = true)]
+        private extern static int Ioctl(int fd, int request, int data);
+
+        [DllImport("libc.so.6", EntryPoint = "read", SetLastError = true)]
+        internal static extern IntPtr Read(int handle, byte[] data, int length);
+
+        [DllImport("libc.so.6", EntryPoint = "close", SetLastError = true)]
+        public static extern int Close(int busHandle);
+
+        public I2cDevice(string busId, II2cConnectionSettings connectionSettings)
         {
             this.ConnectionSettings = connectionSettings;
             this.BusId = busId;
         }
 
-        public int BusId { get; private set; }
+        public string BusId { get; private set; }
 
-        public static int I2cBus
+        public static string I2cBus
         {
             get
             {
-                var p = new Process()
+                if (IsWindows)
                 {
-                    EnableRaisingEvents = false
-                };
+                    throw new NotImplementedException();
+                    // write a file and wait for a response
+                }
+                else
+                { 
+                    var directory = new DirectoryInfo("/dev/");
+                    var i2cFiles = directory.GetFiles().Where(m => m.Name.StartsWith("i2c-")).ToArray();
 
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.FileName = "i2cdetect";
-                p.StartInfo.Arguments = "-l";
+                    if (i2cFiles.Count() == 1)
+                    {
+                        return i2cFiles[0].Name;
+                    }
 
-                p.Start();
-
-                string data = p.StandardOutput.ReadToEnd();
-                p.WaitForExit();
-                
-                var fullI2cBus = data.SplitOnSpaceOrTabs()[0];
-
-                return Convert.ToInt16(fullI2cBus.Replace("i2c-", string.Empty));
+                    if (i2cFiles.Count() > 1)
+                    {
+                        throw new ArgumentOutOfRangeException("More than one I2C bus was found. Please specify the bus directly in the I2cDevice constructor.");
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException("No I2C bus was found. Please check that there is an I2C bus for this device - perhaps use 'i2cdetect -l' from a terminal, or the Bifröst Cartographer.");
+                    }
+                }
             }
         }
-        
+
         public II2cConnectionSettings ConnectionSettings { get; private set; }
 
         public void Dispose()
@@ -58,14 +78,27 @@ namespace Bifrost.Devices.I2c
             }
         }
 
+        public byte[] ReadBytes(byte registerAddress, int startAddress, int size)
+        {
+            if (IsWindows)
+            {
+                throw new NotImplementedException();
+                // write a file and wait for a response
+            }
+            else
+            {
+                // Get the I2C bus name
+                int i2cBushandle = GetI2cBusHandle();
+
+                ControlI2cDevice(registerAddress, i2cBushandle);
+
+                return ReadFromDevice(i2cBushandle, size);
+            }
+        }
+
         public byte[] ReadBytes(byte registerAddress, int size)
         {
             return this.ReadBytes(registerAddress, 0, size);
-        }
-
-        public byte[] ReadBytes(byte registerAddress, int startAddress, int size)
-        {
-            throw new NotImplementedException();
         }
 
         public IWord ReadWord(byte registerAddress)
@@ -75,31 +108,49 @@ namespace Bifrost.Devices.I2c
 
         public IWord ReadWord(byte registerAddress, int startAddress)
         {
-            process = new Process()
+            var word = this.ReadBytes(registerAddress, startAddress, 2);
+
+            return new Word { MostSignificantByte = word[0], LeastSignificantByte = word[1] };
+        }
+
+        private static bool IsWindows
+        {
+            get
             {
-                EnableRaisingEvents = false
-            };
+                return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            }
+        }
 
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.FileName = "i2cget";
-            process.StartInfo.Arguments = $"-y {BusId} {ConnectionSettings.SlaveAddress} {startAddress} w";
+        private byte[] ReadFromDevice(int i2cBushandle, int numberOfBytesToRead)
+        {
+            var deviceDataInMemory = new byte[numberOfBytesToRead];
 
-            process.Start();
+            var deviceReadReturnCode = Read(i2cBushandle, deviceDataInMemory, deviceDataInMemory.Length);
 
-            string data = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            
-            var lsbString = data.Substring(2, 2);
-            int lsb = Int32.Parse(lsbString, NumberStyles.AllowHexSpecifier);
+            return deviceDataInMemory;
+        }
 
-            // Get MSB & parse as integer
-            var msbString = data.Substring(4, 2);
-            int msb = Int32.Parse(msbString, NumberStyles.AllowHexSpecifier);
+        private void ControlI2cDevice(byte registerAddress, int i2cBushandle)
+        {
+            // Now allow control of the remote device
+            var deviceReturnCode = Ioctl(i2cBushandle, I2C_SLAVE, registerAddress);
 
-            // Shift bits as indicated in TMP102 docs & return
-            return new Word { MostSignificantByte = (byte)msb, LeastSignificantByte = (byte)lsb };
+            if (deviceReturnCode < 0)
+            {
+                throw new Exception("Could not establish a connection to the I2C device.");
+            }
+        }
+
+        private int GetI2cBusHandle()
+        {
+            var i2cBushandle = Open(this.BusId, OPEN_READ_WRITE);
+
+            if (i2cBushandle < 0)
+            {
+                throw new Exception("No I2C bus was found. Please check that there is an I2C bus for this device - perhaps use 'i2cdetect -l' from a terminal, or the Bifröst Cartographer.");
+            }
+
+            return i2cBushandle;
         }
     }
 }

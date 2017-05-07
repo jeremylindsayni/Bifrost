@@ -6,7 +6,7 @@ namespace Bifrost.Devices.I2c.Abstractions
     {
         II2cConnectionSettings ConnectionSettings { get; }
 
-        int BusId { get; }
+        string BusId { get; }
 
         string DeviceId { get; }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Bifrost.Devices.I2c.Abstractions;
+﻿using Bifrost.Devices.I2c.Abstractions;
 
 namespace Bifrost.Devices.I2c
 {
