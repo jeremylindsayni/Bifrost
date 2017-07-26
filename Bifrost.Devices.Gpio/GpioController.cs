@@ -22,19 +22,26 @@ namespace Bifrost.Devices.Gpio
 
                 if (isWindows) 
                 {
-                    var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA");
+                    try
+                    {
+                        var localAppData = Environment.GetEnvironmentVariable("LOCALAPPDATA");
 
-                    localAppData = localAppData.Replace("Administrator", "DefaultAccount");
+                        localAppData = localAppData.Replace("Administrator", "DefaultAccount");
 
-                    localAppData = Path.Combine(localAppData, "Packages");
+                        localAppData = Path.Combine(localAppData, "Packages");
 
-                    var piFolders = new DirectoryInfo(localAppData);
+                        var piFolders = new DirectoryInfo(localAppData);
 
-                    var biFrostFolder = piFolders.GetDirectories().Single(m => m.Name.StartsWith("Bifrost"));
+                        var biFrostFolder = piFolders.GetDirectories().Single(m => m.Name.StartsWith("Bifrost"));
 
-                    var localStateDirectory = biFrostFolder.GetDirectories().Single(m => m.Name.StartsWith("LocalState"));
-                    
-                    DevicePath = localStateDirectory.FullName;
+                        var localStateDirectory = biFrostFolder.GetDirectories().Single(m => m.Name.StartsWith("LocalState"));
+
+                        DevicePath = localStateDirectory.FullName;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Could not find device path for Windows application", ex);
+                    }
                 }
                 else 
                 {
