@@ -29,25 +29,30 @@ namespace Bifrost.Devices.Gpio
         {
             //var path = GpioController.DevicePath;
             // write in or out to the "direction" file for this pin.
-            File.WriteAllText(Path.Combine(this.GpioPath, "direction"), "out");
-            Directory.SetLastWriteTime(Path.Combine(this.GpioPath), DateTime.UtcNow);
+            if (driveMode == GpioPinDriveMode.Output)
+            {
+                File.WriteAllText(Path.Combine(this.GpioPath, "direction"), "out");
+                Directory.SetLastWriteTime(Path.Combine(this.GpioPath), DateTime.UtcNow);
+            }
+            else
+            {
+                File.WriteAllText(Path.Combine(this.GpioPath, "direction"), "in");
+                Directory.SetLastWriteTime(Path.Combine(this.GpioPath), DateTime.UtcNow);
+            }
         }
 
         public void Write(GpioPinValue pinValue)
         {
             //var path = GpioController.DevicePath;
             // write a 1 or a 0 to the "value" file for this pin
-            Console.WriteLine($"Write value {pinValue.ToString()} to pin at {Path.Combine(this.GpioPath, "value")}");
             File.WriteAllText(Path.Combine(this.GpioPath, "value"), ((int)pinValue).ToString());
             Directory.SetLastWriteTime(Path.Combine(this.GpioPath), DateTime.UtcNow);
         }
 
         public GpioPinValue Read()
         {
-            Console.WriteLine($"Testing if file exists at {Path.Combine(this.GpioPath, "value")}");
             if (File.Exists(Path.Combine(this.GpioPath, "value")))
             {
-                Console.WriteLine("File exists - about to get text");
                 var pinValue = File.ReadAllText(Path.Combine(this.GpioPath, "value"));
 
                 return (GpioPinValue)Enum.Parse(typeof(GpioPinValue), pinValue);
