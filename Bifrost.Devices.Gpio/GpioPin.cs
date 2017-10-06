@@ -19,10 +19,9 @@ namespace Bifrost.Devices.Gpio
 
         public void Dispose()
         {
-            // equivalent to unexport
-            // write a file with the pin name to the unexport folder
-            // delete files and folders from the device path
-            throw new NotImplementedException();
+            var controller = GpioController.Instance;
+            controller.ClosePin(PinNumber);
+            Dispose(true);
         }
 
         public void SetDriveMode(GpioPinDriveMode driveMode)
