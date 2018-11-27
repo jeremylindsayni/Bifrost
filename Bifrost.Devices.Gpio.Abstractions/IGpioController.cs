@@ -8,6 +8,6 @@ namespace Bifrost.Devices.Gpio.Abstractions
 
         void ClosePin(int pinNumber);
 
-        IDictionary<string, string> Pins { get; }
+        IDictionary<int, IGpioPin> Pins { get; }
     }
 }
