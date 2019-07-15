@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Bifrost.Devices.Gpio.Abstractions;
 using System.IO;
 using System.Linq;
@@ -77,19 +77,16 @@ namespace Bifrost.Devices.Gpio
             {
                 throw new ArgumentOutOfRangeException("Valid pins are between 1 and 26.");
             }
-            // add a file to the export directory with the name <<pin number>>
-            // add folder under device path for "gpio<<pinNumber>>"
-            var gpioDirectoryPath = Path.Combine(DevicePath, string.Concat("gpio", pinNumber.ToString()));
-
-            var gpioExportPath = Path.Combine(DevicePath, "export");
-            
+            // Create folder under device path for "gpio<<pinNumber>>"
+            string gpioDirectoryPath = Path.Combine(DevicePath, string.Concat("gpio", pinNumber.ToString()));
             if (!Directory.Exists(gpioDirectoryPath))
             {
-                File.WriteAllText(gpioExportPath, pinNumber.ToString());
+                // Write the pin number to the export device
+                File.WriteAllText(Path.Combine(DevicePath, "export"), pinNumber.ToString());
                 Directory.CreateDirectory(gpioDirectoryPath);
             }
 
-            // instantiate the gpiopin object to return with the pin number.
+            // Return a GpioPin object with the pin number
             return new GpioPin(pinNumber, gpioDirectoryPath);
         }
 
@@ -99,15 +96,11 @@ namespace Bifrost.Devices.Gpio
             {
                 throw new ArgumentOutOfRangeException("Valid pins are between 1 and 26.");
             }
-            // add a file to the export directory with the name <<pin number>>
-            // add folder under device path for "gpio<<pinNumber>>"
-            var gpioDirectoryPath = Path.Combine(DevicePath, string.Concat("gpio", pinNumber.ToString()));
-
-            var gpioExportPath = Path.Combine(DevicePath, "unexport");
-
+            string gpioDirectoryPath = Path.Combine(DevicePath, string.Concat("gpio", pinNumber.ToString()));
             if (Directory.Exists(gpioDirectoryPath))
             {
-                File.WriteAllText(gpioExportPath, pinNumber.ToString());
+                // Write the pin number to the unexport device
+                File.WriteAllText(Path.Combine(DevicePath, "unexport"), pinNumber.ToString());
             }
         }
     }
